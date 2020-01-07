@@ -5,28 +5,21 @@
 int equi(int inputArr[], int arrayLen)
 {
     int equiPt = -1;
-    const int iniSum = 0;
+
+    double lSum = 0;
+    double rSum = std::accumulate(inputArr,inputArr+arrayLen,0);
     
-    if (arrayLen > 0 && std::accumulate(inputArr,inputArr+arrayLen,iniSum) == 0)
+    for (int i = 0; i < arrayLen; i++)
     {
-        equiPt = 0;
-    }      
-    else if (arrayLen > 0 && std::accumulate(inputArr,inputArr+arrayLen-1,iniSum) == 0)
-    {
-        equiPt = arrayLen-1;
-    }
-    else
-    {
-        for (int numElem = 2; numElem < arrayLen; numElem++)
+        rSum = rSum - inputArr[i];
+        if (lSum == rSum)
         {
-            if (std::accumulate(inputArr,inputArr+numElem-1,iniSum) == std::accumulate(inputArr+numElem,inputArr+arrayLen,iniSum))
-            {
-                equiPt = numElem-1;
-                break;
-            }
+            equiPt = i;
+            break;
         }
-    }  
-    
+        lSum = lSum + inputArr[i];
+    }
+        
     return equiPt;
 }
 
